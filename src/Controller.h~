@@ -1,0 +1,62 @@
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
+
+#include <Arduino.h>
+
+#include <../USB_Host_Shield/Wii.h>
+#include <../USB_Host_Shield/XBOXUSB.h>
+#include <../USB_Host_Shield/PS3Enums.h>
+#include <../USB_Host_Shield/controllerEnums.h>
+
+class Controller {
+    public:
+        Controller (USB *usb);
+        virtual bool connected () = 0;
+        virtual void getAngle () = 0;
+        virtual void getButtons () = 0;
+        virtual void getHats () = 0;
+
+    protected:
+        USB &usb;
+        const static Button buttons [];
+        const static AnalogHat hats [];
+        const static Angle angles [];
+};
+
+template <typename ps3Ctrl>
+class ControllerPs3 : public Controller {
+    public:
+        ControllerPs3 (USB *usb, ps3Ctrl *ctrl);
+        bool connected ();
+        void getAngle ();
+        void getButtons ();
+        void getHats ();
+
+    private:
+        ps3Ctrl &ctrl;
+};
+
+template <typename ps3Ctrl>
+ControllerPs3 <ps3Ctrl> ::ControllerPs3 (USB *usb, ps3Ctrl *ctrl) : Controller (usb), ctrl (*ctrl) {}
+//    this->ctrl = ctrl;
+//}
+template <typename ps3Ctrl>
+bool ControllerPs3 <ps3Ctrl> ::connected (){
+    usb.Task();
+    return (ctrl.PS3Connected || ctrl.PS3NavigationConnected);
+}
+
+template <typename ps3Ctrl>
+void ControllerPs3 <ps3Ctrl> ::getAngle (){
+
+}
+
+template <typename ps3Ctrl>
+void ControllerPs3 <ps3Ctrl> ::getButtons (){
+
+}
+
+template <typename ps3Ctrl>
+void ControllerPs3 <ps3Ctrl> ::getHats (){
+
+}
