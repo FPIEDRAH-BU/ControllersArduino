@@ -17,25 +17,44 @@ class Controller {
         virtual bool* getButtons () = 0;
         virtual uint8_t* getHats () = 0;
 
+        int getNumButts(){return numButts;}
+        int getNumAngles(){return numAngs;}
+        int getNumHats(){return numHats;}
+
+        void setUp();
+
     protected:
         USB &usb;
         const static ButtonEnum buttons [];
         const static AnalogHatEnum hats [];
         const static AngleEnum angles [];
+
+        static const int numButts;
+        static const int numHats;
+        static const int numAngs;
 };
 
 
 Controller::Controller(USB *usb) : usb(*usb){}
 
 
+void Controller::setUp(){
+    Serial.begin(115200);
+    while(!Serial);
+
+    if(usb.Init() == -1){
+        Serial.print("Faildes to start USB");
+    }
+}
+
 template <typename ps3Ctrl>
 class ControllerPs3 : public Controller {
     public:
         ControllerPs3 (USB *usb, ps3Ctrl *ctrl);
         bool connected ();
-        void getAngle ();
-        void getButtons ();
-        void getHats ();
+        double* getAngle ();
+        bool* getButtons ();
+        uint8_t* getHats ();
 
     private:
         ps3Ctrl &ctrl;
@@ -79,32 +98,35 @@ bool ControllerPs3 <ps3Ctrl> ::connected (){
 
 
 template <typename ps3Ctrl>
-void ControllerPs3 <ps3Ctrl> ::getAngle (){
-    double states [numAngs];
+double* ControllerPs3 <ps3Ctrl> ::getAngle (){
+    double *states = (double *) malloc(numAngs * sizeof(double));
     if(connected()){
         for(int index = 0; index < numButts; index++)
             states[index] = ctrl.getAngle(angles [index]);
     }
+    return states;
 }
 
 
 template <typename ps3Ctrl>
-void ControllerPs3 <ps3Ctrl> ::getButtons (){
-    bool states [numButts];
+bool* ControllerPs3 <ps3Ctrl> ::getButtons (){
+    bool* states = (bool *) malloc(numButts * sizeof(bool));
     if(connected()){
         for(int index = 0; index < numButts; index++)
             states[index] = ctrl.getButtonClick(buttons [index]);
     }
+    return states;
 }
 
 
 template <typename ps3Ctrl>
-void ControllerPs3 <ps3Ctrl> ::getHats (){
-    uint8_t states[];
+uint8_t* ControllerPs3 <ps3Ctrl> ::getHats (){
+    uint8_t* states = (uint8_t *) malloc(numHats * sizeof(uint8_t));
     if(connected()){
         for(int index = 0; index < numHats; index++)
             states[index] = ctrl.getAnalogHat(hats [index]);
     }
+    return states;
 }
 
 #endif
