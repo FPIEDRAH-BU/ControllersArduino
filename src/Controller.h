@@ -1,14 +1,22 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+//Arduino compiler includes
 #include <Arduino.h>
 
-#include <../USB_Host_Shield/Wii.h>
-#include <../USB_Host_Shield/XBOXUSB.h>
-#include <../USB_Host_Shield/PS3Enums.h>
+//Lib includes
 #include <../USB_Host_Shield/controllerEnums.h>
 
 
+/************************************************
+ *		Controller Class		*
+ ************************************************
+ *-Class Type: Virtual Base Class		*
+ ************************************************
+ *-Class Description: Structure definition to 	*
+ * add functions and simplify the  host USB 	*
+ * controller classes.				*
+ ************************************************/
 class Controller {
     public:
         Controller (USB *usb);
@@ -33,7 +41,6 @@ class Controller {
         static const int numHats;
         static const int numAngs;
 };
-
 
 
 #endif
