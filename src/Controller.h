@@ -9,13 +9,13 @@
 
 
 /************************************************
- *		Controller Class		*
+ *              Controller Class                *
  ************************************************
- *-Class Type: Virtual Base Class		*
+ *-Class Type: Virtual Base Class               *
  ************************************************
- *-Class Description: Structure definition to 	*
- * add functions and simplify the  host USB 	*
- * controller classes.				*
+ *-Class Description: Structure definition to   *
+ * add functions and simplify the  host USB     *
+ * controller classes.                          *
  ************************************************/
 class Controller {
     public:

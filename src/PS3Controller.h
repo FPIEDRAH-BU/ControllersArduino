@@ -9,17 +9,17 @@
 
 
 /************************************************
- *		Controller Class		*
+ *              Controller Class                *
  ************************************************
- *-Class Type: Concrete Class of virtual	* 
- * Controller class				*
+ *-Class Type: Concrete Class of virtual        *
+ * Controller class                             *
  ************************************************
- *-Class Description: this class may cast a 	*
- * PS3USB object reference or a PS3BT object 	*
+ *-Class Description: this class may cast a     *
+ * PS3USB object reference or a PS3BT object    *
  * reference, by doing this the library can use *
- * all functions of both objects, this library 	*
- * generates middle ware access to the functions* 
- * simplifying them.				*
+ * all functions of both objects, this library  *
+ * generates middle ware access to the functions*
+ * simplifying them.                            *
  ************************************************/
 template <typename ps3Ctrl>
 class ControllerPs3 : public Controller {
@@ -45,12 +45,12 @@ class ControllerPs3 : public Controller {
 
 
 /************************************************
- *	   	  Button Array			*
+ *                  Button Array                *
  ************************************************
  *-Variable Description:This variable contains a*
- * reference to all the object of ButtonEnum 	*
- * that we are interested in for the PS3 	*
- * controller.					*
+ * reference to all the object of ButtonEnum    *
+ * that we are interested in for the PS3        *
+ * controller.                                  *
  ************************************************/
 template <typename ps3Ctrl>
 const ButtonEnum ControllerPs3 <ps3Ctrl> ::buttons [numButts] =
@@ -59,12 +59,12 @@ const ButtonEnum ControllerPs3 <ps3Ctrl> ::buttons [numButts] =
 
 
 /************************************************
- *	   	  Button Hats			*
+ *                   Button Hats                *
  ************************************************
  *-Variable Description:This variable contains a*
- * reference to all the object of AnalogHatEnum	*
- * that we are interested in for the PS3 	*
- * controller.					*
+ * reference to all the object of AnalogHatEnum *
+ * that we are interested in for the PS3        *
+ * controller.                                  *
  ************************************************/
 template <typename ps3Ctrl>
 const AnalogHatEnum ControllerPs3 <ps3Ctrl> ::hats [numHats] =
@@ -72,12 +72,12 @@ const AnalogHatEnum ControllerPs3 <ps3Ctrl> ::hats [numHats] =
 
 
 /************************************************
- *	   	  Button Hats			*
+ *                Button Hats                   *
  ************************************************
  *-Variable Description:This variable contains a*
- * reference to all the object of AngleEnum	*
- * that we are interested in for the PS3 	*
- * controller.					*
+ * reference to all the object of AngleEnum     *
+ * that we are interested in for the PS3        *
+ * controller.                                  *
  ************************************************/
 template <typename ps3Ctrl>
 const AngleEnum ControllerPs3 <ps3Ctrl> ::angles [numAngs] =
@@ -85,25 +85,25 @@ const AngleEnum ControllerPs3 <ps3Ctrl> ::angles [numAngs] =
 
 
 /************************************************
- *	     Controller Constructor		*
+ *           Controller Constructor             *
  ************************************************
- *-Function Description: This will initialize 	*
+ *-Function Description: This will initialize   *
  * the Controller reference object and store it *
  * as a private member of the class, as well as *
- * calling the Controller supertype  to work	* 
- * with the USB reference object.		*
+ * calling the Controller supertype  to work    *
+ * with the USB reference object.               *
  ************************************************/
 template <typename ps3Ctrl>
 ControllerPs3 <ps3Ctrl> ::ControllerPs3 (USB *usb, ps3Ctrl *ctrl) : Controller (usb), ctrl (*ctrl) {}
 
 
 /************************************************
- *	     Controller Constructor		*
+ *            Controller Constructor            *
  ************************************************
  *-Function Description: The function returns   *
- *true if the controller is ready to be used and* 
- *is connected if that is not the case it will 	*
- *return false.					*
+ *true if the controller is ready to be used and*
+ *is connected if that is not the case it will  *
+ *return false.                                 *
  ************************************************/
 template <typename ps3Ctrl>
 bool ControllerPs3 <ps3Ctrl> ::connected (){
@@ -113,13 +113,13 @@ bool ControllerPs3 <ps3Ctrl> ::connected (){
 
 
 /************************************************
- *	     Controller Constructor		*
+ *             Controller Constructor           *
  ************************************************
- *-Function Description: This function will 	*
- * return an array with the lectures of the 	*
+ *-Function Description: This function will     *
+ * return an array with the lectures of the     *
  * angles found in the control, the array will  *
  * have a longitude of numAngs, this length can *
- * be obtained by calling the getNumAng function*			*
+ * be obtained by calling the getNumAng function*
  ************************************************/
 template <typename ps3Ctrl>
 double* ControllerPs3 <ps3Ctrl> ::getAngle (){
@@ -133,14 +133,14 @@ double* ControllerPs3 <ps3Ctrl> ::getAngle (){
 
 
 /************************************************
- *	     Controller Constructor		*
+ *       Controller Constructor                 *
  ************************************************
- *-Function Description: This function will 	*
- * return an array with the lectures of the 	*
+ *-Function Description: This function will     *
+ * return an array with the lectures of the     *
  * buttons found in the control, the array will *
  * have a longitude of numButts, this length can*
- * be obtained by calling the getNumButts 	*
- * function					*			
+ * be obtained by calling the getNumButts       *
+ * function                                     *
  ************************************************/
 template <typename ps3Ctrl>
 bool* ControllerPs3 <ps3Ctrl> ::getButtons (){
@@ -154,14 +154,14 @@ bool* ControllerPs3 <ps3Ctrl> ::getButtons (){
 
 
 /************************************************
- *	     Controller Constructor		*
+ *           Controller Constructor             *
  ************************************************
- *-Function Description: This function will 	*
- * return an array with the lectures of the 	*
- * hats found in the control, the array will 	*
+ *-Function Description: This function will     *
+ * return an array with the lectures of the     *
+ * hats found in the control, the array will    *
  * have a longitude of numHats, this length can *
- * be obtained by calling the getNumHats 	*
- * function					*
+ * be obtained by calling the getNumHats        *
+ * functions                                    *
  ************************************************/
 template <typename ps3Ctrl>
 uint8_t* ControllerPs3 <ps3Ctrl> ::getHats (){
