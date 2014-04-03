@@ -6,7 +6,8 @@
  *-Function Description: Initializes the USB    *
  * reference from the USB Shield library        *
  ************************************************/
-Controller::Controller(USB *usb) : usb(*usb){}
+Controller::Controller(USB *usb) : usb(*usb)
+{}
 
 
 /************************************************
@@ -21,7 +22,8 @@ Controller::Controller(USB *usb) : usb(*usb){}
  * USB reference object, in this error situation*
  * the arduino will end up in an infinite loop. *
  ************************************************/
-void Controller::setUp(){
+void Controller::setUp()
+{
     Serial.begin(115200);
     while(!Serial);
 

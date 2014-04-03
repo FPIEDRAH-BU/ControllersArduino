@@ -5,6 +5,7 @@
 #include <Arduino.h>
 
 //Lib includes
+#include <../USB_Host_Shield/Usb.h>
 #include <../USB_Host_Shield/controllerEnums.h>
 
 
@@ -24,10 +25,6 @@ class Controller {
         virtual double* getAngle () = 0;
         virtual bool* getButtons () = 0;
         virtual uint8_t* getHats () = 0;
-
-        int getNumButts(){return numButts;}
-        int getNumAngles(){return numAngs;}
-        int getNumHats(){return numHats;}
 
         void setUp();
 

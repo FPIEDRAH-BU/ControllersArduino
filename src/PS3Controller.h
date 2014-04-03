@@ -30,6 +30,21 @@ class ControllerPs3 : public Controller {
         bool* getButtons ();
         uint8_t* getHats ();
 
+        int getNumButts()
+	{
+	    return numButts;
+        }
+
+        int getNumAngles()
+	{
+            return numAngs;
+	}
+
+        int getNumHats()
+	{
+	    return numHats;
+	}
+
     private:
         ps3Ctrl &ctrl;
         static const int numButts = 14;
@@ -94,7 +109,8 @@ const AngleEnum ControllerPs3 <ps3Ctrl> ::angles [numAngs] =
  * with the USB reference object.               *
  ************************************************/
 template <typename ps3Ctrl>
-ControllerPs3 <ps3Ctrl> ::ControllerPs3 (USB *usb, ps3Ctrl *ctrl) : Controller (usb), ctrl (*ctrl) {}
+ControllerPs3 <ps3Ctrl> ::ControllerPs3 (USB *usb, ps3Ctrl *ctrl) : Controller (usb), ctrl (*ctrl) 
+{}
 
 
 /************************************************
@@ -106,7 +122,8 @@ ControllerPs3 <ps3Ctrl> ::ControllerPs3 (USB *usb, ps3Ctrl *ctrl) : Controller (
  *return false.                                 *
  ************************************************/
 template <typename ps3Ctrl>
-bool ControllerPs3 <ps3Ctrl> ::connected (){
+bool ControllerPs3 <ps3Ctrl>::connected ()
+{
     usb.Task();
     return (ctrl.PS3Connected || ctrl.PS3NavigationConnected);
 }
@@ -122,8 +139,9 @@ bool ControllerPs3 <ps3Ctrl> ::connected (){
  * be obtained by calling the getNumAng function*
  ************************************************/
 template <typename ps3Ctrl>
-double* ControllerPs3 <ps3Ctrl> ::getAngle (){
-    double *states = (double *) malloc(numAngs * sizeof(double));
+double* ControllerPs3 <ps3Ctrl> ::getAngle ()
+{
+    double *states = (double *) calloc(numAngs * sizeof(double));
     if(connected()){
         for(int index = 0; index < numButts; index++)
             states[index] = ctrl.getAngle(angles [index]);
@@ -143,8 +161,9 @@ double* ControllerPs3 <ps3Ctrl> ::getAngle (){
  * function                                     *
  ************************************************/
 template <typename ps3Ctrl>
-bool* ControllerPs3 <ps3Ctrl> ::getButtons (){
-    bool* states = (bool *) malloc(numButts * sizeof(bool));
+bool* ControllerPs3 <ps3Ctrl> ::getButtons ()
+{
+    bool* states = (bool *) calloc(numButts * sizeof(bool));
     if(connected()){
         for(int index = 0; index < numButts; index++)
             states[index] = ctrl.getButtonClick(buttons [index]);
@@ -164,8 +183,9 @@ bool* ControllerPs3 <ps3Ctrl> ::getButtons (){
  * functions                                    *
  ************************************************/
 template <typename ps3Ctrl>
-uint8_t* ControllerPs3 <ps3Ctrl> ::getHats (){
-    uint8_t* states = (uint8_t *) malloc(numHats * sizeof(uint8_t));
+uint8_t* ControllerPs3 <ps3Ctrl> ::getHats ()
+{
+    uint8_t* states = (uint8_t *) calloc(numHats * sizeof(uint8_t));
     if(connected()){
         for(int index = 0; index < numHats; index++)
             states[index] = ctrl.getAnalogHat(hats [index]);

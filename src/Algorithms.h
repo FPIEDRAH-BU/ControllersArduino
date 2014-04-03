@@ -1,29 +1,29 @@
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
 
-#define INT_SIZE
+#define INT_SIZE 16
 
 #include <Arduino.h>
 
 int16_t fromBitArrayToInt (bool *BitArray, int size){
     byte loByte, hiByte;
 
-    if(size > 16)
+    if(size > INT_SIZE)
         return -1;
 
     for (int index = 0; index < INT_SIZE; index++){
         if(index < size)
-            bitWrite(loByte, BitArray[index]);
+            bitWrite(loByte, index, BitArray[index]);
         else
-            bitWrite(loByte, 0);
+            bitWrite(loByte, index, 0);
 
         if(index + 8 < size)
-            bitWrite(hiByte, BitArray[index + 8]);
+            bitWrite(hiByte, index, BitArray[index + 8]);
         else
-            bitWrite(hiByte, 0);
+            bitWrite(hiByte, index, 0);
     }
 
-    return (int16_t) word(hiByte, loByte);
+    return (int16_t) word(loByte, hiByte);
 }
 
 #endif
