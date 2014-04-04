@@ -24,7 +24,8 @@ class Controller {
         virtual bool connected () = 0;
         virtual double* getAngle () = 0;
         virtual bool* getButtons () = 0;
-        virtual uint8_t* getHats () = 0;
+        virtual uint16_t* getHats () = 0;
+        virtual bool hasChanged() = 0;
 
         void setUp();
 
@@ -37,6 +38,8 @@ class Controller {
         static const int numButts;
         static const int numHats;
         static const int numAngs;
+        static const int tempBuffSize;
+
 };
 
 

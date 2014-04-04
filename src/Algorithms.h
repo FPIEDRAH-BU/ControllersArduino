@@ -11,7 +11,7 @@ int16_t fromBitArrayToInt (bool *BitArray, int size){
     if(size > INT_SIZE)
         return -1;
 
-    for (int index = 0; index < INT_SIZE; index++){
+    for (int index = 0; index < INT_SIZE/2; index++){
         if(index < size)
             bitWrite(loByte, index, BitArray[index]);
         else
