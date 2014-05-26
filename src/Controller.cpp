@@ -29,7 +29,7 @@ void Controller::setUp()
 
     if(usb.Init() == -1){
         Serial.print("Failed to start USB");
-	while(true);
+        while(true);
     }
 }
 
