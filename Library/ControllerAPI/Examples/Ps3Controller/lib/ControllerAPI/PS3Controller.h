@@ -1,6 +1,8 @@
 #ifndef PS3CONTROLLER_H
 #define PS3CONTROLLER_H
 
+#define DEAD_ZONE (255 * 0.1)
+
 //Local Includes
 #include <Controller.h>
 #include <Algorithms.h>
@@ -176,7 +178,7 @@ bool* ControllerPs3 <ps3Ctrl> ::getButtons ()
     bool* states = (bool *) calloc(numButts, sizeof(bool));
     if(connected()){
         for(int index = 0; index < numButts; index++)
-            states[index] = ctrl.getButtonClick(buttons [index]);
+            states[index] = ctrl.getButtonPress(buttons [index]);
     }
 
     fromBitArrayToInt(states, numButts) != tempBuff[0] ?
@@ -187,7 +189,8 @@ bool* ControllerPs3 <ps3Ctrl> ::getButtons ()
 }
 
 template <typename ps3Ctrl>
-int16_t ControllerPs3 <ps3Ctrl> ::getButtons16Bit (){
+int16_t ControllerPs3 <ps3Ctrl> ::getButtons16Bit ()
+{
     bool *states = getButtons();
     int16_t butts = fromBitArrayToInt(states, this->getNumButts());
     delete (states);
@@ -208,15 +211,23 @@ int16_t ControllerPs3 <ps3Ctrl> ::getButtons16Bit (){
 template <typename ps3Ctrl>
 int16_t* ControllerPs3 <ps3Ctrl> ::getHats ()
 {
+    bool changed = false;
     int16_t* states = (int16_t *) calloc(numHats, sizeof(int16_t));
     if(connected()){
         for(int index = 0; index < numHats; index++){
             states[index] = ctrl.getAnalogHat(hats [index]);
-            states[index] != tempBuff[index + 1] ?
-                tempBuff[index + 1] = states[index], hasChangedVar = true:
-                hasChangedVar = false;
         }
     }
+
+    for(int index = 0; index < numHats; index++){
+        if( abs(states[index] - tempBuff[index + 1]) > DEAD_ZONE){
+            tempBuff[index + 1] = states[index];
+            hasChangedVar = true;
+            break;
+        }else
+            hasChangedVar = false;
+    }
+
     return states;
 }
 
@@ -224,6 +235,7 @@ int16_t* ControllerPs3 <ps3Ctrl> ::getHats ()
 template <typename ps3Ctrl>
 bool ControllerPs3 <ps3Ctrl> ::hasChanged ()
 {
+
     return hasChangedVar;
 }
 

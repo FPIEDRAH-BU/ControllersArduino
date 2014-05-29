@@ -14,16 +14,16 @@ void setup(){
 void loop()
 {
     int16_t* hats = ctrl.getHats();
+    bool changedHats = ctrl.hasChanged();
 
     int16_t butts = ctrl.getButtons16Bit();
-    int16_t leftHatX = hats[0];
-    int16_t rightHatX = hats[1];
-    int16_t leftHatY = hats [2];
-    int16_t rightHatY = hats [3];
+    bool changedButtons = ctrl.hasChanged();
 
-    if(ctrl.hasChanged()){
-        Serial.println("Send Data");
-    }
+    if(changedButtons)
+        Serial.println("Buttons Changed");
+
+    if(changedHats)
+        Serial.println("Changed Hats");
 
     delete (hats);
 }
