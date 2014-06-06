@@ -39,8 +39,8 @@ ctrl.getButtons();
 
 The buttons are in the following order:
 ```c++
-    {UP, RIGHT, DOWN, LEFT, TRIANGLE, CIRCLE,
-            CROSS, SQUARE, L2, R2, L1, R1, SELECT, START};
+{UP, RIGHT, DOWN, LEFT, TRIANGLE, CIRCLE,
+ CROSS, SQUARE, L2, R2, L1, R1, SELECT, START};
 ```
 
 you may as well use getButtons16Bit, the function will get you all the array
