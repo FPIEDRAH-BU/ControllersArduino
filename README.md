@@ -53,7 +53,7 @@ ctrl.getHats();
 
 The hats will be returned in the following order:
 ```c++
-{LeftHatX, RightHatX, LeftHatX, LeftHatY};
+{LeftHatY, LeftHatX, RightHatY, RightHatX};
 ```
 
 

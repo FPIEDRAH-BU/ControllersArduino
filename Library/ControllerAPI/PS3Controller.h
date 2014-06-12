@@ -1,7 +1,7 @@
 #ifndef PS3CONTROLLER_H
 #define PS3CONTROLLER_H
 
-#define DEAD_ZONE (255 * 0.1)
+#define DEAD_ZONE (127 * 0.1)
 
 //Local Includes
 #include <Controller.h>
@@ -91,7 +91,7 @@ const ButtonEnum ControllerPs3 <ps3Ctrl> ::buttons [numButts] =
  ************************************************/
 template <typename ps3Ctrl>
 const AnalogHatEnum ControllerPs3 <ps3Ctrl> ::hats [numHats] =
-    {LeftHatX, RightHatX, LeftHatX, LeftHatY};
+    {LeftHatY, LeftHatX, RightHatY, RightHatX};
 
 
 /************************************************
@@ -192,7 +192,12 @@ template <typename ps3Ctrl>
 int16_t ControllerPs3 <ps3Ctrl> ::getButtons16Bit ()
 {
     bool *states = getButtons();
-    int16_t butts = fromBitArrayToInt(states, this->getNumButts());
+    int16_t butts;
+    for(int index =0;index < this->getNumButts();index++)
+    {
+        bitWrite(butts,index,states[index]);            // Used to make the output match with te readme
+    }
+    //int16_t butts = fromBitArrayToInt(states, this->getNumButts());
     delete (states);
 
     return butts;
@@ -215,7 +220,17 @@ int16_t* ControllerPs3 <ps3Ctrl> ::getHats ()
     int16_t* states = (int16_t *) calloc(numHats, sizeof(int16_t));
     if(connected()){
         for(int index = 0; index < numHats; index++){
-            states[index] = ctrl.getAnalogHat(hats [index]);
+            int16_t temp_state = map(ctrl.getAnalogHat(hats [index]),0,255,-127,127);
+            if(abs(temp_state) >  DEAD_ZONE){
+                states[index] = temp_state;
+                if(index == 0 || index == 2)
+                {
+                    states[index] = -states[index];
+                }
+            }
+            else{
+                states[index] = 0;
+            }
         }
     }
 
