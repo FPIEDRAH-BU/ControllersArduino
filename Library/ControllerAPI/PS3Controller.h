@@ -220,7 +220,7 @@ int16_t* ControllerPs3 <ps3Ctrl> ::getHats ()
     int16_t* states = (int16_t *) calloc(numHats, sizeof(int16_t));
     if(connected()){
         for(int index = 0; index < numHats; index++){
-            int16_t temp_state = map(ctrl.getAnalogHat(hats [index]),0,255,-127,127);
+            int16_t temp_state = map(ctrl.getAnalogHat(hats [index]), -100, 100, -127, 127);
             if(abs(temp_state) >  DEAD_ZONE){
                 states[index] = temp_state;
                 if(index == 0 || index == 2)
