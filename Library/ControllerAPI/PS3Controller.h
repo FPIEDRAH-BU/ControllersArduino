@@ -91,7 +91,7 @@ const ButtonEnum ControllerPs3 <ps3Ctrl> ::buttons [numButts] =
  ************************************************/
 template <typename ps3Ctrl>
 const AnalogHatEnum ControllerPs3 <ps3Ctrl> ::hats [numHats] =
-    {LeftHatY, LeftHatX, RightHatY, RightHatX};
+    {LeftHatX, LeftHatY, RightHatX, RightHatY};
 
 
 /************************************************
